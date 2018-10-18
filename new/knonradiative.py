@@ -26,7 +26,7 @@ fr    =    ev/amu/ang**2
 t = t*kb
 f = fcf_decimal(ni,nf,wi,wf,q)
 z = sum(exp(-(0.5 + i)*wi/t) for i in range(200)) # partition
-beta = wi*fr/(wi/hbar)**2/2  # hbar/omega unit Q^2
+beta = sqrt(wi*fr/(wi/hbar)**2/2)  # hbar/omega unit Q^2
 #
 
 rate = 0.0
@@ -36,10 +36,10 @@ for i in range(ni-1):
     for j in range(nf):
         ef = (0.5 + j)*wf
         if i < 1:
-           rate += 2*pi*bz*(sqrt(i+1)*f[i+1,j])**2*zpl**2*wij**2* \
+           rate += 2*pi*beta**2*bz*(sqrt(i+1)*f[i+1,j])**2*zpl**2*wij**2* \
                    gaussian(zpl+ei,ef,sigma)
         else:
-           rate += 2*pi*bz*(sqrt(i+1)*f[i+1,j]+sqrt(i)*f[i-1,j])**2* \
+           rate += 2*pi*beta**2*bz*(sqrt(i+1)*f[i+1,j]+sqrt(i)*f[i-1,j])**2* \
                    zpl**2*wij**2*gaussian(zpl+ei,ef,sigma)
 
 print rate/h  # Hz
