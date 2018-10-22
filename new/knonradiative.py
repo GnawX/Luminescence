@@ -3,6 +3,7 @@ from math import sqrt, exp, pi
 from functions import fcf_decimal, gaussian          
 
 """ calculate the nonradiative recombination rate """
+# kn = 2pi/hbar * W^2 *Sum_n,m p_m*|<n|Q|m>|^2*delta(zpl+e_m-e_n)
 
 # input parameters
 ni    =    50                   # initial
@@ -13,7 +14,7 @@ q     =    9.04728    # in sqrt(amu)*ang
 sigma =    0.225      # broadening       
 t     =    300                   # K     
 zpl   =    2.70845    # eV               
-wij   =    8e-4   # <0|dPsi/dQ> unit 1/Q 
+wij   =    6e-4   # <0|dPsi/dQ> unit 1/Q 
 # constants                              
 kb    =    8.6173303e-5  # eV/K          
 hbar  =    6.582119514e-16 # eV.s/rad
