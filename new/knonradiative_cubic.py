@@ -27,17 +27,17 @@ fr    =    ev/amu/ang**2
 # initialize                                                            
 t = t*kb                                                                
 f = fcf_decimal(ni,nf,wi,wf,q)                                          
-z = sum(exp(-(0.5 + i)*wi/t) for i in range(200)) # partition           
+z = sum(exp(-i*wi/t) for i in range(200)) # partition           
 beta = sqrt(wi*fr/(wi/hbar)**2/2)  # sqrt(hbar/2omega) unit Q
 #
 ff = np.zeros((ni,nf))
 
 rate = 0.0
 for i in range(ni-4):
-    ei = (0.5 + i)*wi - 30*lam**2*beta**6/wi*(i**2+i+11./30)
+    ei = i*wi - 30*lam**2*beta**6/wi*(i**2+i+11./30)
     bz = exp(-ei/t)/z
     for j in range(nf):
-        ef = (0.5 + j)*wf
+        ef = j*wf
         if i < 1:
            ff[i,j] = beta*sqrt(i+1)*f[i+1,j] + lam*beta**4/3/wi* \
                      (-9*(2*i+1)*f[i,j]-2*(5*i+6)*sqrt((i+1)*(i+2))*f[i+2,j] - \
