@@ -30,7 +30,7 @@ fr    =    ev/amu/ang**2
 # initialize                                                           
 t = t*kb                                                               
 f = fcf_decimal(ni,nf,wi,wf,k)                                         
-z = sum(exp(-(0.5 + i)*wi/t) for i in range(100)) # partition          
+z = sum(exp(-i*wi/t) for i in range(100)) # partition          
 beta = sqrt(wi*fr/(wi/hbar)**2/2)  # sqrt(hbar/2omega) unit Q          
 e = np.linspace(es,ed,ne)                                              
 pl = np.zeros(ne)
@@ -38,7 +38,7 @@ ff = np.zeros((ni,nf))
 #
 for ie in range(ne):
     for i in range(ni-3):
-        ei = (0.5 + i)*wi - 30*lam**2*beta**6/wi*(i**2+i+11./30)
+        ei = i*wi - 30*lam**2*beta**6/wi*(i**2+i+11./30)
         bz = exp(-ei/t)/z
         for j in range(nf):
             ef = (0.5 + j)*wf
