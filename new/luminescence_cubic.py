@@ -41,7 +41,7 @@ for ie in range(ne):
         ei = i*wi - 30*lam**2*beta**6/wi*(i**2+i+11./30)
         bz = exp(-ei/t)/z
         for j in range(nf):
-            ef = (0.5 + j)*wf
+            ef = j*wf
             if i < 1:
                ff[i,j] = f[i,j]-lam*beta**3/3/wi*(9*sqrt((i+1)**3)*f[i+1,j] \
                     + sqrt((i+1)*(i+2)*(i+3))*f[i+3,j])
