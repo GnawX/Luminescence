@@ -21,13 +21,13 @@ kb    =    8.6173303e-5  # eV/K
 t = t*kb
 f = fcf_decimal(ni,nf,wi,wf,k)
 f = f**2
-z = sum(exp(-(0.5 + i)*wi/t) for i in range(100)) # partition
+z = sum(exp(-i*wi/t) for i in range(100)) # partition
 e = np.linspace(es,ed,ne)
 pl = np.zeros(ne)
 #
 for ie in range(ne):
     for i in range(ni):
-        ei = (0.5 + i)*wi
+        ei = i*wi
         bz = exp(-ei/t)/z
         for j in range(nf):
             ef = (0.5 + j)*wf
