@@ -30,7 +30,7 @@ for ie in range(ne):
         ei = i*wi
         bz = exp(-ei/t)/z
         for j in range(nf):
-            ef = (0.5 + j)*wf
+            ef = j*wf
             pl[ie] += bz*e[ie]**3*f[i,j]*gaussian(e[ie],zpl+ei-ef,sigma)
 
 tmp = np.vstack((e,pl))
