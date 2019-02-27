@@ -6,6 +6,7 @@ w1_   =    0.01045   # eV
 w2_   =    0.01061
 d     =    9.0056    # sqrt(amu)*A
 dE    =    0.4219    # eV
+t     =    300       # K
 # conversion units
 kb    =    8.6173303e-5  # eV/K          
 hbar  =    6.582119514e-16 # eV.s/rad
@@ -19,15 +20,23 @@ a2b   =    1.88973 # ang to bohr
 fr    =    np.sqrt(ev/amu/ang**2)*hbar # sqrt(ev/amu/ang**2) to eV
 w1    =    w1_/fr
 w2    =    w2_/fr
+t     =    kb*t
 # location of the barrier
 b     =    (w2**2*d - np.sqrt(w1**2*w2**2*d**2 + 2*dE*(w2**2 - w1**2)))/(w2**2 - w1**2)
+v     =    0.5*w1**2*b**2
+# partition function
+z = sum(np.exp(-(i+0.5)*w1_/t) for i in range(200))
 
-
+pt = 0.0
 for n in range(200):
-    e = (n + 0.5)*w1
-    a = np.sqrt(2*e/w1**2)
-    c = d - np.sqrt(2*(e + dE)/w2**2)
-    l = 1./6*w1**2*b**3 - e*b + 1./3*w1**2*a**3
-    r = 1./6*w2**2*(c**3 - b**3) - 0.5*w2**2*d*(c**2 - b**2) + (0.5*w2**2*d**2 - dE - e)*(c - b)
-    gamma = (l + r)/ha2ev*np.sqrt(amu2au)*a2b
-    t = np.exp(-2*gamma)
+    e = (n + 0.5)*w1_
+    if e < v:
+        a = np.sqrt(2*e/w1**2)
+        c = d - np.sqrt(2*(e + dE)/w2**2)
+        l = b/2*np.sqrt(2*v-2*e) + e/w1*np.log(w1*a/(np.sqrt(2*v-2*e)+w1*b))
+        r = (d-b)/2*np.sqrt(2*v-2*e)+(dE+e)/w2*np.log((np.sqrt(2*v-2*e)+w2*(b-d))/w2/(c-d))
+        gamma = (l + r)/np.sqrt(ha2ev)*np.sqrt(amu2au)*a2b
+        p = np.exp(-2*gamma)
+    else:
+        p = 1.0
+    pt += p*np.exp(-e/t)/z
