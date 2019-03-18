@@ -13,7 +13,8 @@ tau = 2.418884e-17 # hbar/Eh
 #        3*pi*eps0*hbar*c^3
 
 # c = 137 in au  light speed
+# in au eps0 = 1/4pi
 
-t = 3*pi*137**3/sqrt(eps)/(omega/eh)**3/mu2/fc*tau
+t = 3*137**3/4/sqrt(eps)/(omega/eh)**3/mu2/fc*tau
 
 print t
